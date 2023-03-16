@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@notionhq/client": "^2.2.3",
+    "sass": "^1.59.2",
     "vue3-notion": "^0.1.40"
   }
 }
