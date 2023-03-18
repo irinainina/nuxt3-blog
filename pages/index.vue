@@ -1,23 +1,47 @@
 <template>
+  <div class="tags">
+    <button v-for="tag in tags" class="tag"
+      @click="setTag(tag.value)"
+      :class="state.tag_filter === tag.value && 'tag-active'">
+      {{ tag.name }}
+    </button>
+  </div>
   <div v-if="posts" class="posts">
-    <div v-for="post in posts" :key="post.id" class="post"
-      @click="$router.push(`/post/${post.post}`)">
-      <img :src=post.image alt="post-image" class="post-image" />
-      <div class="post-content">
-        <h3 class="post-title">{{ post.title }}</h3>
-        <div class="post-tag">{{ post.tag }}</div>        
-        <div class="post-date">{{ post.date }}</div>
+    <transition-group name="list">
+      <div v-for="post in posts" :key="post.id" class="post" @click="$router.push(`/post/${post.post}`)">
+        <img :src=post.image alt="post-image" class="post-image" />
+        <div class="post-content">
+          <h3 class="post-title">{{ post.title }}</h3>
+          <div class="post-tag">{{ post.tag }}</div>
+          <div class="post-date">{{ post.date }}</div>
+        </div>
       </div>
-    </div>
+    </transition-group>
   </div>
 </template>
 
 <script setup>
-  const { data: posts } = useAsyncData('posts', async () => {
-    const response = await $fetch('/api/posts');
-    // const res = response.filter(post => post.tag === 'Concepts');
-    return response;
-  })
+const tags = [
+  { name: 'All categories', value: '' },
+  { name: 'Get Started', value: 'Get Started' },
+  { name: 'Configuration', value: 'Configuration' },
+  { name: 'Features', value: 'Features' },
+  { name: 'Concepts', value: 'Concepts' },
+];
+
+const state = reactive({
+  tag_filter: '',
+});
+
+const setTag = (tag) => {
+  state.tag_filter = tag;
+}
+
+const { data: posts } = useAsyncData('posts', async () => {
+  const response = await $fetch('/api/posts');
+  return response.filter(post => state.tag_filter ? post.tag === state.tag_filter : post);
+}, { watch: [state] });
+
 </script>
 
 <style lang="scss" scoped>
@@ -29,13 +53,17 @@
   gap: 32px;
   width: 100%;
   max-width: 1202px;
-  min-height: 400px;
-  padding: 120px 16px 60px;
+  min-height: calc(100vh - 340px);
+  padding: 40px 16px 60px;
   margin: 0 auto;
   transition: .5s;
+
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 220px);
+  }
 }
 
-.post {  
+.post {
   width: 100%;
   max-width: 368px;
   min-height: 300px;
@@ -91,5 +119,77 @@
   flex-shrink: 0;
   width: 100%;
   font-size: 14px;
+}
+
+.tags {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  width: 748px;
+  max-width: 100%;
+  padding: 0 16px;
+  margin: 120px auto 40px;
+
+  @media (max-width: 768px) {
+    margin: 60px auto 20px;
+  }
+}
+
+.tag {
+  display: flex;
+  flex-shrink: 0;
+  padding: 12px 24px;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  color: var(--title-color);
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  background-color: var(--card-color);
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: none;
+  transition: 0.3s, color 0.3s;
+
+  &:hover {
+    color: #009055;
+  }
+}
+
+.tag-active {
+  color: #ffffff;
+  background-color: #00DC82;
+
+  &:hover {
+    background-color: #009055;
+    color: #ffffff;
+  }
+}
+
+.list-item {
+  transition: all 1.8s ease;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all .8s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.list-leave-active {
+  position: absolute;
+  z-index: 0;
+}
+
+.list-move {
+  transition: transform 0.7s ease;
 }
 </style>

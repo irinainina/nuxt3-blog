@@ -55,82 +55,18 @@ body {
 }
 
 .notion.notion-page-content {
-  width: 680px;
-  max-width: calc(100% - 32px);
-  margin: 40px auto 0;
-  padding: 0;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--text-color);
-  caret-color: var(--fg-color);
-  background-color: var(--background-color);
-  font-family: Inter, sans-serif;
+  width: 100%;
+  max-width: 980px;
+  margin: 0 !important;
+  padding-bottom: 40px;
+}
 
-  .notion-page, .notion-page.notion-page-offset {
-    padding: 0;
-  }
+.notion-page {
+  width: 100% !important;
+  max-width: 980px !important;
+  margin: 0 !important;
+}
 
-  .notion-title {
-    display: none;
-  }
-
-  p {
-    padding: 0;
-    margin-bottom: 24px;
-  }
-
-  ul,
-  ol {
-    margin-top: -16px;
-    margin-bottom: 4px;
-    padding-left: 20px;
-    list-style: auto;
-  }
-  ul + p,
-  ol + p {
-    padding-top: 12px;
-  }
-  ul {
-    padding-left: 20px;
-    list-style: outside;
-  }
-  ol {
-    list-style-type: auto;
-  }
-  .notion-quote {
-    padding: 0;
-    margin: 0;
-    margin-bottom: 24px;
-    border: 0;
-    font-family: Inter, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    padding-left: 56px;
-    background-image: url(../assets/img/quote.png);
-    background-size: 32px 32px;
-    background-repeat: no-repeat;
-  }
-  
-  .notion-h1, .notion-h2, .notion-h3 {    
-    margin-top: 12px;
-    margin-bottom: 26px;
-  }
-  .notion-h1 span b span,
-  .notion-h2 span b span,
-  .notion-h3 span b span {
-    font-family: "Lora";
-    font-weight: 500;
-    font-size: 32px;
-    line-height: 1.2;
-    color: var(--title-color);
-
-    @media (max-width: 640px) {
-      font-size: 24px;
-    }
-  }
-  h2 + ul,
-  h2 + ol {
-    margin-top: -5px;
-  }
+.notion-title {
+  display: none;
 }
