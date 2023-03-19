@@ -4,7 +4,12 @@ export default defineNuxtConfig({
     "@/assets/styles/_variables.scss",
     "@/assets/styles/main.scss",
   ],
-  modules: [
-    ["vue3-notion/nuxt", { css: true }],
-  ],
+  modules: [["vue3-notion/nuxt", { css: true }]],
+  vite: {
+    server: {
+      hmr: {
+        port: 3008,
+      },
+    },
+  },
 });
