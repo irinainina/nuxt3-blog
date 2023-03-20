@@ -1,10 +1,12 @@
 <template>
   <div class="header">
     <div class="header-container">
-      <div class="logo">
-        <div class="logo-icon"></div>
-        Nuxt 3 Blog
-      </div>
+      <NuxtLink to="/" aria-label="Nuxt 3 Blog">
+        <div class="logo">
+          <div class="logo-icon"></div>
+          Nuxt 3 Blog
+        </div>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -31,6 +33,11 @@
     min-height: 56px;
     line-height: 56px;
   }
+
+  & a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
 }
 
 .logo {
@@ -40,6 +47,7 @@
   font-family: Lora;
   font-weight: 500;
   font-size: 24px;
+
 }
 
 .logo-icon {

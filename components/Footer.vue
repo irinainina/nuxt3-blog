@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
       <div class="footer-container">
-        <NuxtLink to="/" aria-label="finden">
+        <NuxtLink to="/" aria-label="Nuxt 3 Blog">
           <div class="logo-icon"></div>
         </NuxtLink>
         <p class="footer-info">2023 @Nuxt3 Blog</p>
